@@ -1,0 +1,86 @@
+[user]
+	email = gdjamerson@gmail.com
+	name = Greg Jamerson
+[credential "https://github.com"]
+	helper =
+	helper = !$(brew --prefix)/bin/gh auth git-credential
+[url "https://github.com/"]
+	insteadOf = git@github.com:
+	insteadOf = ssh://git@github.com/
+	insteadOf = http://github.com/
+[alias]
+  # add
+  a = add                           # add
+
+  # branch
+  b = !git checkout $(git -c color.ui=always long-recent | fzf --ansi --no-sort -n1 | sed -E 's/(\\*)?([^ ]+).*/\\2/') # interactive branch switcher via fzf
+  short-recent = for-each-ref --count=25 --sort=-committerdate refs/heads/ --format='%(refname:short)'
+  long-recent = for-each-ref --count=25 --sort=-committerdate refs/heads/ --format='%(HEAD)%(color:yellow)%(refname:short) %(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+  list-stale = branch --list --format "%(if:equals=[gone])%(upstream:track)%(then)%(refname:lstrip=2)%(end)"
+  prune-all = !git-prune-all
+
+  # commit
+  c = commit                       # commit
+  amend = commit --amend            # amend your last commit
+
+  # checkout
+  co = checkout                     # checkout
+  nb = checkout -b                  # create and switch to a new branch (mnemonic: "git new branch branchname...")
+
+  # cherry-pick
+  cp = cherry-pick                  # grab a change from a branch
+  pick = cherry-pick
+
+  # diff
+  d = diff                          # diff unstaged changes
+  dc = diff --cached                # diff staged changes
+  last = diff HEAD^                 # diff last committed change
+  staged = diff --cached
+  unstaged = diff
+  both = diff HEAD
+
+  # log
+  changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
+  short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
+  simple = log --pretty=format:\" * %s\"
+  shortnocolor = log --pretty=format:\"%h %cr %cn %s\"
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cblue%an%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  l = log --name-status --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cblue%an%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+
+  # pull
+  pl = pull                         # pull
+
+  # push
+  ps = push                         # push
+
+  # rebase
+  rc = rebase --continue            # continue rebase
+  rs = rebase --skip                # skip rebase
+
+  # remote
+  r = remote -v                     # show remotes (verbose)
+
+  # reset
+  unstage = reset HEAD              # remove files from index (tracking)
+  uncommit = reset --soft HEAD^     # go back before last commit, with files in uncommitted state
+  filelog = log -u                  # show changes to a file
+  mt = mergetool                    # fire up the merge tool
+
+  # stash
+  ss = stash                        # stash changes
+  sl = stash list                   # list stashes
+  sa = stash apply                  # apply stash (restore changes)
+  sd = stash drop                   # drop stashes (destory changes)
+
+  # status
+  s = status                        # status
+  st = status -sb
+  stat = status                     # status
+
+  # tag
+  t = tag -n                        # show tags with <n> lines of each tag message
+
+  # svn helpers
+  svnr = svn rebase
+  svnd = svn dcommit
+  svnl = svn log --oneline --show-commit
