@@ -14,3 +14,6 @@
       force: true
     ~/.gitconfig.user:
       path: config/git/gitconfig.user
+    ~/.tmux.conf:
+      path: config/tmux/tmux.conf
+      force: true
